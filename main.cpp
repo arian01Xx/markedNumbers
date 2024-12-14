@@ -1,0 +1,42 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <deque>
+
+using namespace std;
+
+class Solution {
+public:
+    long long findScore(vector<int>& nums) {
+        long long score=0;
+        int n=nums.size();
+        deque<int> q;
+
+        for(int i=0; i<n; i++){
+            if(!q.empty() && nums[i]>=q.back()){
+                bool skip=false;
+                while(!q.empty()){
+                    int add=q.back();
+                    q.pop_back();
+                    if(!skip) score+=add;
+                    skip= !skip; //lo marca como verdadero
+                }
+                continue;
+            }
+            q.push_back(nums[i]);
+        }
+
+        bool skip=false;
+        while(!q.empty()){
+            int add=q.back();
+            q.pop_back();
+            if(!skip) score+=add;
+            skip= !skip;
+        }
+        return score;
+    }
+};
+
+int main(){
+    return 0;
+}
